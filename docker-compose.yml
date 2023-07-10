@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+    sqldatadb:
+        container_name: "sqldatadb"
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=SemSenha#2023
+        volumes:
+            - C:\app:/var/opt/mssql/data
+        ports:
+            - 3341:1433  
+            
+    apimini:
+        container_name: "apimini-compose"
+        image: ${DOCKER_REGISTRY-}apimini
+        build:
+            context: .
+            dockerfile: ApiMini/Dockerfile
+        ports:
+            - "8001:80"          

@@ -41,9 +41,8 @@ app.UseAuthorization();
 app.UseSwagger();
 
 app.MapPost("/Login", (AppDbContext context, [FromBody] LoginModel auth) =>
-{
-    string secret = TokenService.SHA256(auth.Password);
-    var user = context.Usuario.Where(p => p.UserName == auth.UserName && p.Password == secret).FirstOrDefault();
+{    
+    var user = context.Usuario.Where(p => p.UserName == auth.UserName && p.Password == auth.Password).FirstOrDefault();
 
     return user is not null ? Results.Ok(new UsuarioAuth
     {

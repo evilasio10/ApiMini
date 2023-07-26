@@ -47,7 +47,7 @@ app.MapPost("/Login", (AppDbContext context, [FromBody] LoginModel auth) =>
     return user is not null ? Results.Ok(new UsuarioAuth
     {
         ide_usuario = user.ide_usuario,
-        nome = user.UserName,
+        username = user.UserName,
         email = user.Email,
         role = user.Role,
         token = TokenService.GerarToken(user, builder.Configuration["Jwt:Secret"])
